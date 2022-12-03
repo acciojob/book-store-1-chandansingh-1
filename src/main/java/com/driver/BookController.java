@@ -93,22 +93,24 @@ public class BookController {
     // get request /get-books-by-author
     // pass author name as request param
     @GetMapping("/get-books-by-author")
-    public ResponseEntity<Book> getBooksByAuthor(@RequestParam("author") String author) {
+    public ResponseEntity<List<Book>> getBooksByAuthor(@RequestParam("author") String author) {
+        List<Book> listBook = new ArrayList<>();
         for(Book book : bookList) {
             if(book.getAuthor().equals(author))
-                return new ResponseEntity(book, HttpStatus.ACCEPTED);
+                listBook.add(book);
         }
-        return new ResponseEntity("Sorry Not Found", HttpStatus.ACCEPTED);
+        return new ResponseEntity(listBook, HttpStatus.ACCEPTED);
     }
 
     // get request /get-books-by-genre
     // pass genre name as request param
     @GetMapping("/get-books-by-genre")
-    public ResponseEntity<Book> getBooksByGenre(@RequestParam("genre") String genre) {
+    public ResponseEntity<List<Book>> getBooksByGenre(@RequestParam("genre") String genre) {
+        List<Book> listGenre = new ArrayList<>();
         for(Book book : bookList) {
             if(book.getGenre().equals(genre))
-                return new ResponseEntity(book, HttpStatus.ACCEPTED);
+                listGenre.add(book);
         }
-        return new ResponseEntity("Sorry Not Found", HttpStatus.ACCEPTED);
+        return new ResponseEntity(listGenre, HttpStatus.ACCEPTED);
     }
 }
